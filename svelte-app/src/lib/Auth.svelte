@@ -1,43 +1,42 @@
 <script lang="ts">
-    import type { Provider } from "@supabase/supabase-js";
-    import { supabase } from "./db";
+  import type { Provider } from "@supabase/supabase-js";
+  import { supabase } from "./db";
 
-    interface HelperText {
-        error: boolean;
-        text: string | null;
+  interface HelperText {
+    error: boolean;
+    text: string | null;
+  }
+
+  let email: string = "";
+  let password: string = "";
+  let helperText: HelperText = { error: null, text: null };
+
+  const handleLogin = async (type) => {
+    const {
+      data: { user },
+      error,
+    } =
+      type === "LOGIN"
+        ? await supabase.auth.signInWithPassword({ email, password })
+        : await supabase.auth.signUp({ email, password });
+
+    if (error) {
+      helperText = { error: true, text: error.message };
+    } else if (!user && !error) {
+      helperText = {
+        error: false,
+        text: "An email has been sent to you for verification!",
+      };
     }
+  };
 
-    let email: string = "";
-    let password: string = "";
-    let helperText: HelperText = { error: null, text: null };
-
-    const handleLogin = async (type) => {
-        const {
-            data: { user },
-            error,
-        } = 
-        type === "LOGIN"
-            ? await supabase.auth.signInWithPassword({ email, password })
-            : await supabase.auth.signUp({ email, password });
-
-        if(error) {
-            helperText = { error: true, text: error.message };
-        } else if (!user && !error) {
-            helperText = {
-                error: false,
-                text: "An email has been sent to you for verification!",
-            };
-        }
-    };
-
-    const handleOAuthLogin = async (provider: Provider) => {
-        let { error } = await supabase.auth.signInWithOAuth({ provider });
-        if (error) console.log("Error: ", error.message);
-    };
-
-
+  const handleOAuthLogin = async (provider: Provider) => {
+    // You need to enable the third party auth you want in Authentication > Settings
+    // Read more on: https://supabase.com/docs/guides/auth#third-party-logins
+    let { error } = await supabase.auth.signInWithOAuth({ provider });
+    if (error) console.log("Error: ", error.message);
+  };
 </script>
-
 
 <div
   class="w-full h-full sm:h-auto sm:w-2/5 max-w-sm p-5 bg-white shadow flex flex-col text-base"
