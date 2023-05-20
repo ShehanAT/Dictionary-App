@@ -56,7 +56,7 @@
 </script>
 
 <div class="w-full">
-  <h1 class="mb-12">Todo List.</h1>
+  <h1 class="mb-12">Dictionary App</h1>
   <form
     on:submit|preventDefault={() => addTodo(newTaskText)}
     class="flex gap-2 my-2"

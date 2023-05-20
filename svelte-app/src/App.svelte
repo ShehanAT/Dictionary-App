@@ -32,5 +32,8 @@
     <div class="min-w-full min-h-screen flex items-center justify-center">
       <Auth />
     </div>
+
+
   {/if}
 </div>
+
