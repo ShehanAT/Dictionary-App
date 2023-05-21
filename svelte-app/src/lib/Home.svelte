@@ -25,13 +25,6 @@
     on:change={(value) => searchWord = value.target.value }
     on:input={(value) => console.log(searchWord) }
     >
-  <!-- <form class="form-wrapper cf">
-    <input type="text" placeholder="Search here for a word..." on:input={(value) => { console.log(value) } } required>
-    <button type="submit">Search</button>
-    </form> -->
-    <div class="byline">
-    <p>search box by <a href="http://speckyboy.com/2012/02/15/how-to-build-a-stylish-css3-search-box/">SpeckyBoy</a> featured on <a href="http://thecodeblock.com/search-box-tutorials-using-css3-jquery/">THE CODE BLOCK</a></p>
-  </div>
   <!-- <TodoList {user} /> -->
   <button
     class="btn-black w-full mt-12"
@@ -45,6 +38,7 @@
             if(data[0].meanings.length > 0) {
               for(var i = 0 ; i < data[0].meanings.length; i++) {
                 if(data[0].meanings[i].definitions.length > 0) {
+                  $view.definitions = [];
                   for(var j = 0; j < data[0].meanings[i].definitions.length; j++) {
                     if(data[0].meanings[i].definitions[j]){
                       $view.definitions.push(data[0].meanings[i].definitions[j].definition);
